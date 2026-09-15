@@ -11,6 +11,7 @@ import org.springframework.web.client.RestClient;
 public class PaymentServiceImpl implements PaymentService {
 
   private final RestClient restClient;
+
   @Value("${payment-service.url}")
   private String paymentServiceUrl;
 

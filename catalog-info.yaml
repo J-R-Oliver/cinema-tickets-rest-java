@@ -9,10 +9,10 @@ metadata:
   annotations:
     gitlab.com/project-slug: https://gitlab.com/dwp/recruitment-assessments/software-engineer/cinema-tickets-rest-java.git
   labels:
-    dwp.gov.uk/version: 0.0.1-SNAPSHOT
+    dwp.gov.uk/version: 0.0.2-SNAPSHOT
     dwp.gov.uk/license: MIT
     dwp.gov.uk/last-verified.by: "david-nicklin"
-    dwp.gov.uk/last-verified.on: "2026-05-11"
+    dwp.gov.uk/last-verified.on: "2026-10-01"
     dwp.gov.uk/open-source.approved: "true"
     dwp.gov.uk/open-source.location: https://github.com/dwp/cinema-tickets-rest-java
     dwp.gov.uk/impacts.audit: "false"

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestClient;
 public class SeatReservationServiceImpl implements SeatReservationService {
 
   private final RestClient restClient;
+
   @Value("${reservation-service.url}")
   private String reservationServiceUrl;
 

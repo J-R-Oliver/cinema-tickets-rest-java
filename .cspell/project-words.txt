@@ -1,6 +1,7 @@
 alessandrojcm
 authorisation
 bidi
+codehaus
 codequality
 commitlint
 davidanson
@@ -8,6 +9,7 @@ failsafe
 interruptible
 javaagent
 jsonschema
+mojo
 nicklin
 rbubley
 restclient

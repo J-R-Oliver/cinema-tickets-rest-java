@@ -1,6 +1,7 @@
 package uk.gov.dwp.engineering.recruitment;
 
 import org.springframework.stereotype.Service;
+import uk.gov.dwp.engineering.recruitment.domain.BookingConfirmation;
 import uk.gov.dwp.engineering.recruitment.domain.TicketRequest;
 import uk.gov.dwp.engineering.recruitment.exception.InvalidBookingException;
 import uk.gov.dwp.engineering.recruitment.thirdparty.PaymentService;
@@ -20,9 +21,10 @@ public class CinemaTicketsServiceImpl implements CinemaTicketsService {
   }
 
   @Override
-  public String purchaseTickets(final Long accountId, final TicketRequest... ticketRequests)
+  public BookingConfirmation purchaseTickets(final Long accountId,
+      final TicketRequest... ticketRequests)
       throws InvalidBookingException {
 
-    return null;
+    throw new InvalidBookingException("Not implemented yet");
   }
 }

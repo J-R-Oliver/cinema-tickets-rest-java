@@ -20,7 +20,7 @@ public class CinemaTicketsApplicationTest {
 
   @Test
   void main() {
-    CinemaTicketsApplication.main(new String[]{"--spring.main.web-environment=false",});
+    CinemaTicketsApplication.main(new String[]{"--spring.main.web-application-type=none",});
   }
 
 }
