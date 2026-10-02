@@ -49,7 +49,7 @@ repos:
             docs/change-log.md
           )$
         additional_dependencies:
-          - "@cspell/dict-en-gb@5.0.27"
+          - "@cspell/dict-en-gb@5.0.34"
         stages:
           - pre-commit
           - commit-msg
