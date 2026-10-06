@@ -13,9 +13,7 @@ import uk.gov.dwp.engineering.recruitment.domain.BookingConfirmation;
 @RequestMapping("/cinema")
 public class CinemaTicketsController {
 
-  /**
-   * The Ticket Booking Service.
-   */
+  /** The Ticket Booking Service. */
   private final CinemaTicketsService cinemaTicketsService;
 
   public CinemaTicketsController(final CinemaTicketsService cinemaTicketsService) {
@@ -29,8 +27,9 @@ public class CinemaTicketsController {
    */
   @PostMapping(value = "/bookings", consumes = "application/json", produces = "application/json")
   public ResponseEntity<BookingConfirmation> makeBooking(@RequestBody Booking ticketBooking) {
-    return new ResponseEntity<>(cinemaTicketsService.purchaseTickets(ticketBooking.accountId(),
-        ticketBooking.ticketRequests()), HttpStatus.CREATED);
+    return new ResponseEntity<>(
+        cinemaTicketsService.purchaseTickets(
+            ticketBooking.accountId(), ticketBooking.ticketRequests()),
+        HttpStatus.CREATED);
   }
-
 }

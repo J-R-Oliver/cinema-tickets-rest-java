@@ -12,11 +12,9 @@ import org.springframework.test.web.client.MockRestServiceServer;
 @RestClientTest(SeatReservationService.class)
 class SeatReservationServiceImplTest {
 
-  @Autowired
-  MockRestServiceServer server;
+  @Autowired MockRestServiceServer server;
 
-  @Autowired
-  SeatReservationService seatReservationService;
+  @Autowired SeatReservationService seatReservationService;
 
   @Test
   void givenReservationRequest_thenOkIsReturned() {

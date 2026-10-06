@@ -8,9 +8,8 @@ class InvalidBookingExceptionTest {
 
   @Test
   void givenInvalidBookingException_whenGetMessage_thenExpectedValueReturned() {
-    final InvalidBookingException invalidBookingException = new InvalidBookingException(
-        "A useful message");
+    final InvalidBookingException invalidBookingException =
+        new InvalidBookingException("A useful message");
     assertEquals("A useful message", invalidBookingException.getMessage());
   }
-
 }
