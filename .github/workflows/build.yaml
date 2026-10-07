@@ -1,0 +1,63 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  Git:
+    name: Git
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Commit Lint
+        uses: webiny/action-conventional-commits@v1.4.2
+      - name: Secrets Scan
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Shell Lint
+        uses: luizm/action-sh-checker@v0.10.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Outstanding Todos
+        run: |
+          echo Checking for outstanding todos...
+          if git grep -nE '(//|#) [Tt][Oo][Dd][Oo]'; then
+            echo Outstanding todos found...
+            exit 1
+          fi
+          echo No todos found...
+  Maven:
+    name: Maven
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Maven Verify
+        run: mvn clean verify --batch-mode --errors --show-version
+        # batch-mode: runs maven in a non-interactive mode
+        # errors: displays production errors
+        # show-version: displays maven version
+      - name: Upload Code Coverage Report
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: Mutation Report
+          path: target/pit-reports/
+      - name: Upload PMD and Spotbugs Report
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: PMD and Spotbugs Report
+          path: target/reports/

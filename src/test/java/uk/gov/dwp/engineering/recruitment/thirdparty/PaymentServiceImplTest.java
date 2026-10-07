@@ -13,16 +13,14 @@ import org.springframework.test.web.client.MockRestServiceServer;
 @RestClientTest(PaymentService.class)
 class PaymentServiceImplTest {
 
-  @Autowired
-  MockRestServiceServer server;
+  @Autowired MockRestServiceServer server;
 
-  @Autowired
-  private PaymentService paymentService;
+  @Autowired private PaymentService paymentService;
 
   @Test
   void givenPaymentRequest_thenOkIsReturned() {
-    final ResponseEntity<String> responseEntity = paymentService.debitAccount(1L,
-        BigDecimal.valueOf(1.00));
+    final ResponseEntity<String> responseEntity =
+        paymentService.debitAccount(1L, BigDecimal.valueOf(1.00));
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
   }
 }

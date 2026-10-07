@@ -10,8 +10,7 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 public class CinemaTicketsApplicationTest {
 
-  @Autowired
-  ApplicationContext context;
+  @Autowired ApplicationContext context;
 
   @Test
   public void whenSpringIsLoadedContextIsNotNull() {
@@ -20,7 +19,9 @@ public class CinemaTicketsApplicationTest {
 
   @Test
   void main() {
-    CinemaTicketsApplication.main(new String[]{"--spring.main.web-application-type=none",});
+    CinemaTicketsApplication.main(
+        new String[] {
+          "--spring.main.web-application-type=none",
+        });
   }
-
 }

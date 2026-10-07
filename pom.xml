@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -13,7 +13,7 @@
 
   <groupId>uk.gov.dwp.engineering.recruitment</groupId>
   <artifactId>cinema-tickets</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>cinema-tickets</name>
   <description>DWP Code Test : Cinema Tickets</description>
   <url>https://github.com/dwp/cinema-tickets-rest-java</url>
@@ -54,6 +54,12 @@
     <!-- overrides for vulnerability - verify and remove if possible when updating parent -->
     <jackson-bom.version>3.1.7</jackson-bom.version>
     <tomcat.version>11.0.26</tomcat.version>
+    <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
+    <google-java-format.version>1.19.2</google-java-format.version>
+    <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+    <spotbugs-maven-plugin.version>4.10.4.1</spotbugs-maven-plugin.version>
+    <pitest-maven.version>1.30.0</pitest-maven.version>
+    <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
   </properties>
 
   <dependencies>
@@ -76,6 +82,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-restclient-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -151,6 +163,110 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>spotless-check</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <java>
+            <excludes>
+              <exclude>src/main/java/uk/gov/dwp/engineering/recruitment/domain/Booking.java</exclude>
+              <exclude>src/main/java/uk/gov/dwp/engineering/recruitment/domain/TicketRequest.java</exclude>
+              <exclude>src/main/java/uk/gov/dwp/engineering/recruitment/domain/TicketType.java</exclude>
+              <exclude>src/test/java/uk/gov/dwp/engineering/recruitment/domain/BookingTest.java</exclude>
+              <exclude>src/test/java/uk/gov/dwp/engineering/recruitment/domain/TicketRequestTest.java</exclude>
+            </excludes>
+            <googleJavaFormat>
+              <version>${google-java-format.version}</version>
+              <style>GOOGLE</style>
+            </googleJavaFormat>
+          </java>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${maven-pmd-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>pmd-check</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <printFailingErrors>true</printFailingErrors>
+          <typeResolution>true</typeResolution>
+          <rulesets>
+            <ruleset>category/java/bestpractices.xml</ruleset>
+            <ruleset>category/java/errorprone.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>spotbugs-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>spotbugs</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <htmlOutput>true</htmlOutput>
+          <excludeFilterFile>${project.basedir}/spotbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>${pitest-maven.version}</version>
+        <executions>
+          <execution>
+            <id>pitest-mutation-coverage</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>mutationCoverage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>${pitest-junit5-plugin.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <mutationThreshold>100</mutationThreshold>
+          <coverageThreshold>100</coverageThreshold>
+        </configuration>
       </plugin>
     </plugins>
   </build>
